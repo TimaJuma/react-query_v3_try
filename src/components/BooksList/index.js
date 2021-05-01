@@ -1,12 +1,12 @@
 import { useQuery } from "react-query";
 import { Flex } from "rebass/styled-components";
-import { getAllBoooks } from "../../api";
+import { getAllBooks } from "../../api";
 import Container from "../../shared/Container";
 import Loader from "react-loader-spinner";
 import BookItem from "./BookItem";
 
 const BooksList = () => {
-  const { data, error, isLoading, isError } = useQuery("books", getAllBoooks);
+  const { data, error, isLoading, isError } = useQuery("books", getAllBooks);
 
   if (isLoading) {
     return (
