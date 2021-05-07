@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { usePosts } from "./hooks";
+// import { usePosts } from "./hooks";
 import { useCreatePosts } from "./mutations";
+import usePosts from "./usePosts";
 
 function Posts({ setActivePostId }) {
   const { error, refetch, posts, status } = usePosts();
