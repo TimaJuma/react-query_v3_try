@@ -1,58 +1,45 @@
 import React from "react";
 import axios from "axios";
-
-import React from "react";
-
-const index = () => {
-  return <div></div>;
-};
-
-export default index;
+import { usePosts } from "./hooks";
+import { useCreatePosts } from "./mutations";
 
 function Posts({ setActivePostId }) {
-  const [posts, setPosts] = React.useState([]);
-  const [error, setError] = React.useState();
-  const [status, setStatus] = React.useState("loading");
+  const { error, refetch, posts, status } = usePosts();
+  const [createPost, createPostStatus] = useCreatePosts();
 
-  const fetchPosts = async () => {
+  const onSubmit = async (values) => {
     try {
-      setStatus("loading");
-      const posts = await axios.get("/books").then((response) => response.data);
+      await createPost(values);
+      refetch();
     } catch (err) {
-      setError(err);
-      setStatus("error");
+      console.log(err);
     }
   };
 
-  React.useEffect(() => {
-    fetchPosts();
-  }, []);
-
-
-  const onSubmit = async (values) => {
-      try {
-        setMutationStatus('loading');
-        await axios.post("/books", values)
-        setInitialValues({})
-        setMutationStatus('success');
-        fetchPosts();
-      } catch (err) {
-          setMutationStatus('error')
-          console.log(err);
-      }
-  }
-
-  const [initialValues, setInitialValues] = React.useState({});
-  const [mutationStatus, setMutationStatus] = React.useState("idle");
-
-  return <>
+  return (
     <section>
+      <div>
+        <h3> BOOKS BELOW as POSTS</h3>
         <div>
-            <h3> Posts TRial</h3>
+          {status === "loading" ? (
+            <span>Loading...</span>
+          ) : status === "error" ? (
+            <span>Error: {error.message}</span>
+          ) : (
             <div>
-                {status === "loading" ? }
+              {posts.map((post) => (
+                <div key={post.id}>
+                  <a href={post.id} onClick={() => setActivePostId(post.id)}>
+                    {post.title}
+                  </a>
+                </div>
+              ))}
             </div>
+          )}
         </div>
+      </div>
     </section>
-  </>;
+  );
 }
+
+export default Posts;
