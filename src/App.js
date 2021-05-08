@@ -1,15 +1,15 @@
 import { Switch, Route } from "react-router-dom";
 import BooksList from "./components/BooksList";
 import CreateBook from "./components/CreateBook";
-import Posts from "./components/Posts";
+// import Posts from "./components/Posts";
 import UpdateBook from "./components/UpdateBook";
 import NavBar from "./shared/NavBar";
 
 function App() {
   return (
     <>
-      <Posts />
-      {/* <NavBar />
+      {/* <Posts /> */}
+      <NavBar />
       <Switch>
         <Route path="/create-book">
           <CreateBook />
@@ -20,7 +20,7 @@ function App() {
         <Route path="/">
           <BooksList />
         </Route>
-      </Switch> */}
+      </Switch>
     </>
   );
 }
